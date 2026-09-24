@@ -1,0 +1,532 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Profile | BlogSphere</title>
+
+   <style>
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: Arial, sans-serif;
+    }
+
+    body {
+        background: #f5f7fb;
+        color: #222;
+    }
+
+
+    /* ================================
+       NAVBAR
+       ================================ */
+
+    nav {
+        background: #0d6efd;
+        color: white;
+        padding: 16px 6%;
+
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+
+        box-shadow: 0 3px 10px rgba(0, 0, 0, 0.12);
+    }
+
+    nav h2 {
+        font-size: 26px;
+    }
+
+    nav div {
+        display: flex;
+        align-items: center;
+        gap: 22px;
+    }
+
+    nav a {
+        color: white;
+        text-decoration: none;
+        font-weight: 600;
+        font-size: 14px;
+    }
+
+    nav a:hover {
+        text-decoration: underline;
+    }
+
+
+    /* ================================
+       PROFILE CONTAINER
+       ================================ */
+
+    .profile {
+        width: 90%;
+        max-width: 950px;
+
+        margin: 40px auto;
+
+        background: white;
+
+        border-radius: 16px;
+
+        padding: 35px;
+
+        box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+    }
+
+
+    /* ================================
+       PROFILE HEADER
+       ================================ */
+
+    .header {
+        text-align: center;
+    }
+
+    .header img {
+        width: 150px;
+        height: 150px;
+
+        border-radius: 50%;
+
+        border: 5px solid #0d6efd;
+
+        object-fit: cover;
+
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+    }
+
+    .header h2 {
+        margin-top: 18px;
+
+        color: #0d6efd;
+
+        font-size: 28px;
+    }
+
+    .header p {
+        color: #666;
+
+        margin-top: 8px;
+
+        font-size: 15px;
+    }
+
+
+    /* ================================
+       PROFILE PICTURE UPLOAD
+       ================================ */
+
+    .header form {
+        margin-top: 18px;
+    }
+
+    .header input[type="file"] {
+        max-width: 260px;
+
+        padding: 8px;
+
+        border: 1px solid #ddd;
+
+        border-radius: 6px;
+
+        background: #fafafa;
+    }
+
+    .upload-button {
+        margin-top: 12px;
+
+        padding: 10px 18px;
+
+        background: #0d6efd;
+
+        color: white;
+
+        border: none;
+
+        border-radius: 7px;
+
+        font-size: 14px;
+
+        font-weight: 600;
+
+        cursor: pointer;
+    }
+
+    .upload-button:hover {
+        background: #0b5ed7;
+    }
+
+
+    /* ================================
+       STATISTICS
+       ================================ */
+
+    .stats {
+        display: flex;
+
+        justify-content: center;
+
+        margin: 35px 0;
+    }
+
+    .box {
+        width: 220px;
+
+        padding: 22px;
+
+        text-align: center;
+
+        background: #eef5ff;
+
+        border: 1px solid #d9e8ff;
+
+        border-radius: 12px;
+    }
+
+    .box h3 {
+        color: #0d6efd;
+
+        font-size: 30px;
+
+        margin-bottom: 5px;
+    }
+
+    .box p {
+        color: #666;
+
+        font-size: 14px;
+    }
+
+
+    /* ================================
+       BLOG SECTION
+       ================================ */
+
+    .section-title {
+        margin: 25px 0 20px;
+
+        color: #222;
+
+        font-size: 23px;
+
+        border-bottom: 2px solid #0d6efd;
+
+        padding-bottom: 10px;
+    }
+
+
+    /* ================================
+       BLOG POST CARD
+       ================================ */
+
+    .post {
+        border: 1px solid #e3e3e3;
+
+        border-radius: 12px;
+
+        padding: 20px;
+
+        margin-bottom: 18px;
+
+        background: #fff;
+
+        transition: 0.2s;
+    }
+
+    .post:hover {
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+
+        transform: translateY(-2px);
+    }
+
+    .post h3 {
+        margin-bottom: 10px;
+
+        color: #222;
+
+        font-size: 19px;
+    }
+
+    .post p {
+        color: #666;
+
+        line-height: 1.6;
+
+        font-size: 14px;
+    }
+
+
+    /* ================================
+       EDIT / DELETE BUTTONS
+       ================================ */
+
+    .buttons {
+        margin-top: 16px;
+
+        display: flex;
+
+        gap: 10px;
+    }
+
+    .btn {
+        display: inline-block;
+
+        padding: 9px 16px;
+
+        color: white;
+
+        text-decoration: none;
+
+        border-radius: 7px;
+
+        font-size: 14px;
+
+        font-weight: 600;
+    }
+
+    .edit {
+        background: #198754;
+    }
+
+    .edit:hover {
+        background: #157347;
+    }
+
+    .delete {
+        background: #dc3545;
+    }
+
+    .delete:hover {
+        background: #bb2d3b;
+    }
+
+
+    /* ================================
+       FOOTER
+       ================================ */
+
+    footer {
+        background: #222;
+
+        color: white;
+
+        text-align: center;
+
+        padding: 18px;
+
+        margin-top: 40px;
+
+        border-radius: 0 0 12px 12px;
+    }
+
+    footer p {
+        font-size: 13px;
+    }
+
+
+    /* ================================
+       MOBILE
+       ================================ */
+
+    @media (max-width: 768px) {
+
+        nav {
+            flex-direction: column;
+
+            gap: 15px;
+
+            text-align: center;
+        }
+
+        nav div {
+            flex-wrap: wrap;
+
+            justify-content: center;
+
+            gap: 14px;
+        }
+
+        .profile {
+            width: 94%;
+
+            padding: 22px;
+
+            margin: 25px auto;
+        }
+
+        .header img {
+            width: 125px;
+
+            height: 125px;
+        }
+
+        .header h2 {
+            font-size: 24px;
+        }
+
+        .box {
+            width: 100%;
+        }
+
+        .stats {
+            margin: 25px 0;
+        }
+
+        .buttons {
+            flex-wrap: wrap;
+        }
+    }
+</style>
+
+</head>
+
+<body>
+
+<nav>
+
+    <h2>BlogSphere</h2>
+
+    <div>
+        <a href="{{ url_for('home') }}">Home</a>
+
+        <a href="{{ url_for('create_post') }}">Create Post</a>
+
+        <a href="{{ url_for('profile') }}">Profile </a>
+
+        <a href="{{ url_for('logout') }}">Logout</a>
+    </div>
+
+</nav>
+
+
+<div class="profile">
+
+
+    <!-- PROFILE INFORMATION -->
+
+    <div class="header">
+
+        {% if user.profile_pic %}
+
+            <img
+                src="{{ url_for('static', filename='profile/' + user.profile_pic) }}"
+                width="150"
+                height="150"
+                style="border-radius: 50%; object-fit: cover;"
+            >
+
+        {% else %}
+
+            <img
+                src="{{ url_for('static', filename='profile/default.png') }}"
+                alt="Default Profile Picture"
+            >
+
+        {% endif %}
+
+
+        <!-- PROFILE PICTURE UPLOAD -->
+
+        <form
+            action="{{ url_for('upload_profile') }}"
+            method="POST"
+            enctype="multipart/form-data"
+        >
+
+            <input
+                type="file"
+                name="profile_pic"
+                accept="image/png,image/jpeg,image/jpg"
+                required
+            >
+
+            <br>
+
+            <button
+                type="submit"
+                class="upload-button"
+            >
+                Change Profile Picture
+            </button>
+
+        </form>
+
+
+        <h2>{{ user.username }}</h2>
+
+        <p>Welcome to your profile.</p>
+
+        <p>
+            Email: {{ user.email }}
+        </p>
+
+    </div>
+
+
+    <!-- POST COUNT -->
+
+    <div class="stats">
+
+        <div class="box">
+
+            <h3>{{ posts|length }}</h3>
+
+            <p>Posts</p>
+
+        </div>
+
+    </div>
+
+
+    <!-- BLOG POSTS -->
+
+    <h2 class="section-title">My Blog Posts</h2>
+
+{% if posts %}
+
+    {% for post in posts %}
+
+    <div class="post">
+
+        <h3>{{ post.title }}</h3>
+
+        <p>{{ post.content[:150] }}...</p>
+
+        <div class="buttons">
+            <a href="{{ url_for('edit_post', id=post.id) }}" class="btn edit">
+                Edit
+            </a>
+
+            <a href="{{ url_for('delete_post', id=post.id) }}" class="btn delete">
+                Delete
+            </a>
+        </div>
+
+    </div>
+
+    {% endfor %}
+
+{% else %}
+
+    <p>No blog posts yet.</p>
+
+{% endif %}
+
+
+<footer>
+
+    <p>
+        &copy; 2026 BlogSphere | College Project
+    </p>
+
+</footer>
+
+
+</body>
+
+</html>

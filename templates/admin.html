@@ -1,0 +1,455 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Admin Dashboard | BlogSphere</title>
+
+    <style>
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            background: #f4f6f9;
+            color: #333;
+        }
+
+        .admin-header {
+            background: #0d6efd;
+            color: white;
+            padding: 25px 40px;
+        }
+
+        .admin-header h1 {
+            margin-bottom: 8px;
+        }
+
+        .admin-header p {
+            margin-bottom: 20px;
+        }
+
+        .nav-buttons {
+            display: flex;
+            gap: 15px;
+        }
+
+        .nav-buttons a {
+            text-decoration: none;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 6px;
+            font-weight: bold;
+        }
+
+        .home-btn {
+            background: #198754;
+        }
+
+        .logout-btn {
+            background: #dc3545;
+        }
+
+        .nav-buttons a:hover {
+            opacity: 0.85;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 30px auto;
+        }
+
+        .container h2 {
+            margin-bottom: 20px;
+            color: #0d6efd;
+        }
+
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+            margin-bottom: 40px;
+        }
+
+        .stat-card {
+            background: white;
+            padding: 25px;
+            border-radius: 10px;
+            text-align: center;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+
+        .stat-card h3 {
+            font-size: 35px;
+            color: #0d6efd;
+            margin-bottom: 8px;
+        }
+
+        .stat-card p {
+            color: #666;
+        }
+
+        .section {
+            background: white;
+            padding: 25px;
+            margin-bottom: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+            overflow-x: auto;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th {
+            background: #0d6efd;
+            color: white;
+            padding: 12px;
+            text-align: left;
+        }
+
+        td {
+            padding: 12px;
+            border-bottom: 1px solid #ddd;
+        }
+
+        tr:hover {
+            background: #f5f5f5;
+        }
+
+        .delete-btn {
+            background: #dc3545;
+            color: white;
+            text-decoration: none;
+            padding: 7px 12px;
+            border-radius: 5px;
+        }
+
+        .delete-btn:hover {
+            background: #bb2d3b;
+        }
+
+        footer {
+            background: #222;
+            color: white;
+            text-align: center;
+            padding: 18px;
+            margin-top: 40px;
+        }
+
+        @media(max-width: 768px) {
+
+            .stats {
+                grid-template-columns: 1fr;
+            }
+
+            .admin-header {
+                padding: 20px;
+            }
+
+            .container {
+                width: 95%;
+            }
+        }
+
+    </style>
+</head>
+
+<body>
+
+    <header class="admin-header">
+
+        <h1>🛠️ BlogSphere Admin Dashboard</h1>
+
+        <p>Manage users, blogs and comments</p>
+
+        <div class="nav-buttons">
+
+            <a href="{{ url_for('home') }}" class="home-btn">
+                🏠 Home
+            </a>
+
+            <a href="{{ url_for('logout') }}" class="logout-btn">
+                🚪 Logout
+            </a>
+
+        </div>
+
+    </header>
+
+    <div class="container">
+
+
+    <main class="admin-container">
+
+
+        <!-- Website Statistics -->
+
+        <section class="admin-section">
+
+            <h2>Website Statistics</h2>
+
+            <div class="stats-grid">
+
+                <div class="stat-card">
+                    <div class="stat-icon">👥</div>
+                    <div>
+                        <h3>{{ users|length }}</h3>
+                        <p>Total Users</p>
+                    </div>
+                </div>
+
+
+                <div class="stat-card">
+                    <div class="stat-icon">📝</div>
+                    <div>
+                        <h3>{{ posts|length }}</h3>
+                        <p>Total Blogs</p>
+                    </div>
+                </div>
+
+
+                <div class="stat-card">
+                    <div class="stat-icon">💬</div>
+                    <div>
+                        <h3>{{ comments|length }}</h3>
+                        <p>Total Comments</p>
+                    </div>
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- Registered Users -->
+
+        <section class="admin-section">
+
+            <div class="section-heading">
+                <div>
+                    <h2>Registered Users</h2>
+                    <p>Manage users registered on your website.</p>
+                </div>
+
+                <span class="count-badge">
+                    {{ users|length }} Users
+                </span>
+            </div>
+
+
+            <div class="admin-table-container">
+
+                <table class="admin-table">
+
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Username</th>
+                            <th>Email</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+
+                        {% for user in users %}
+
+                        <tr>
+
+                            <td>{{ user.id }}</td>
+
+                            <td class="user-name">
+                                {{ user.username }}
+                            </td>
+
+                            <td>{{ user.email }}</td>
+
+                            <td>
+
+                                {% if user.email == "yugrahangdale56@gmail.com" %}
+
+                                    <span class="admin-label">
+                                        Admin
+                                    </span>
+
+                                {% else %}
+
+                                    <a
+                                        href="{{ url_for('admin_delete_user', id=user.id) }}"
+                                        class="delete-btn"
+                                        onclick="return confirm('Delete this user?')"
+                                    >
+                                        Delete
+                                    </a>
+
+                                {% endif %}
+
+                            </td>
+
+                        </tr>
+
+                        {% endfor %}
+
+                    </tbody>
+
+                </table>
+
+            </div>
+
+        </section>
+
+
+        <!-- All Blogs -->
+
+        <section class="admin-section">
+
+            <div class="section-heading">
+
+                <div>
+                    <h2>All Blogs</h2>
+                    <p>View and manage published blogs.</p>
+                </div>
+
+                <span class="count-badge">
+                    {{ posts|length }} Blogs
+                </span>
+
+            </div>
+
+
+            <div class="admin-table-container">
+
+                <table class="admin-table">
+
+                    <thead>
+
+                        <tr>
+                            <th>ID</th>
+                            <th>Title</th>
+                            <th>Author</th>
+                            <th>Category</th>
+                            <th>Action</th>
+                        </tr>
+
+                    </thead>
+
+
+                    <tbody>
+
+                        {% for post in posts %}
+
+                        <tr>
+
+                            <td>{{ post.id }}</td>
+
+                            <td class="blog-title">
+                                {{ post.title }}
+                            </td>
+
+                            <td>{{ post.author }}</td>
+
+                            <td>
+
+                                {% if post.category %}
+                                    <span class="category-badge">
+                                        {{ post.category }}
+                                    </span>
+                                {% else %}
+                                    <span class="no-category">
+                                        No Category
+                                    </span>
+                                {% endif %}
+
+                            </td>
+
+                            <td>
+
+                                <a
+                                    href="{{ url_for('admin_delete_post', id=post.id) }}"
+                                    class="delete-btn"
+                                    onclick="return confirm('Delete this blog?')"
+                                >
+                                    Delete
+                                </a>
+
+                            </td>
+
+                        </tr>
+
+                        {% endfor %}
+
+                    </tbody>
+
+                </table>
+
+            </div>
+
+        </section>
+
+
+        <!-- Comments -->
+
+        <section class="admin-section">
+
+            <div class="section-heading">
+
+                <div>
+                   <h2>Comments</h2>
+
+<table border="1" cellpadding="10">
+
+    <tr>
+        <th>ID</th>
+        <th>Author</th>
+        <th>Comment</th>
+        <th>Action</th>
+    </tr>
+
+    {% for comment in comments %}
+
+    <tr>
+        <td>{{ comment.id }}</td>
+
+        <td>{{ comment.author }}</td>
+
+        <td>{{ comment.content }}</td>
+
+        <td>
+            <a href="{{ url_for('delete_comment', id=comment.id) }}"
+               onclick="return confirm('Delete this comment?')"
+               style="color:red;">
+                🗑️ Delete
+            </a>
+        </td>
+    </tr>
+
+    {% else %}
+
+    <tr>
+        <td colspan="4">No comments available.</td>
+    </tr>
+
+    {% endfor %}
+
+</table>
+
+            </div>
+
+        </section>
+
+
+    </main>
+
+</body>
+
+</html>
