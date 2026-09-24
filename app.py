@@ -49,6 +49,10 @@ class Comment(db.Model):
     author = db.Column(db.String(100), nullable=False)
     content = db.Column(db.Text, nullable=False)
     post_id = db.Column(db.Integer, db.ForeignKey('post.id'), nullable=False)
+
+with app.app_context():
+    db.create_all()
+        
 class Like(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     user_id = db.Column(db.Integer, nullable=False)
